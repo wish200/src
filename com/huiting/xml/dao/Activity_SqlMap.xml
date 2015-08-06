@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ActivityInfo">
+  <typeAlias alias="ActivityDto" type="com.huiting.xml.dto.ActivityDto"/>
+  <typeAlias alias="ActivityShowListBean" type="com.huiting.xml.activityshow.bean.ActivityShowListBean"/>
+  <resultMap id="ActivityMap" class="ActivityDto" >
+    <result column="ActivityID" property="ActivityID" jdbcType="VARCHAR" />
+    <result column="ActivityName" property="ActivityName" jdbcType="VARCHAR" />
+    <result column="ActivityType" property="ActivityType" jdbcType="VARCHAR" />
+    <result column="ActivityDESC" property="ActivityDESC" jdbcType="VARCHAR" />
+    <result column="ActivityPicURL" property="ActivityPicURL" jdbcType="VARCHAR" />
+    <result column="ActivityTime" property="ActivityTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="ActivityDto" parameterClass="java.lang.String" >
+  	select * from  t_Activity where ActivityID = #ActivityID#  and Status='1'
+  </select>
+  
+  <delete id="delete" parameterClass="ActivityDto" >
+  	delete from t_Activity where ActivityID = #ActivityID#
+  </delete>
+
+  <insert id="insert" parameterClass="ActivityDto" >
+  	insert into t_Activity(ActivityID,ActivityName,ActivityType,ActivityDESC,ActivityPicURL,ActivityTime)
+  	values (#ActivityID#,#ActivityName#,#ActivityType#,#ActivityDESC:VARCHAR#,#ActivityPicURL:VARCHAR#,#ActivityTime:TIMESTAMP#)
+  </insert>
+  
+  <update id="update" parameterClass="ActivityDto" >
+  	update t_Activity  set ActivityName=#ActivityName#,ActivityType=#ActivityType#,ActivityDESC=#ActivityDESC#,ActivityPicURL=#ActivityPicURL#,ActivityTime=#ActivityTime#
+  	 where ActivityID = #ActivityID#
+  </update>
+   
+  <select id="querylist" parameterClass="ActivityDto" resultMap="ActivityMap">
+  select * from t_Activity
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="ActivityID">
+    ActivityID = #ActivityID#
+   </isNotEmpty>
+   
+  </dynamic>
+ </select>
+ 
+  <select id="querylistshow" parameterClass="ActivityDto" resultClass="ActivityShowListBean">
+  select ActivityID,ActivityName,ActivityType,ActivityDESC,ActivityPicURL,ActivityTime from t_Activity
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="ActivityID">
+    ActivityID = #ActivityID#
+   </isNotEmpty>
+   
+  </dynamic>
+ </select>
+
+ 
+</sqlMap>

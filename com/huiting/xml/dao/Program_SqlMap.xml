@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ProgramInfo">
+  <typeAlias alias="ProgramDto" type="com.huiting.xml.dto.ProgramDto"/>
+  <typeAlias alias="ProgramListBean" type="com.huiting.xml.programlist.bean.ProgramListBean"/>
+  <typeAlias alias="ProgramListNotifyBean" type="com.huiting.xml.programnotify.bean.ProgramListBean"/>
+  <resultMap id="ProgramMap" class="ProgramDto" >
+    <result column="ProgramID" property="ProgramID" jdbcType="VARCHAR" />
+    <result column="ChannelID" property="ChannelID" jdbcType="VARCHAR" />
+    <result column="ProgramName" property="ProgramName" jdbcType="VARCHAR" />
+     <result column="ProgramURL" property="ProgramURL" jdbcType="VARCHAR" />
+    <result column="Duration" property="Duration" jdbcType="VARCHAR" />
+    <result column="ProgramPic" property="ProgramPic" jdbcType="VARCHAR" />
+    <result column="PlayCnt" property="PlayCnt" jdbcType="INT" />
+    <result column="FlowerCnt" property="FlowerCnt" jdbcType="INT" />
+    <result column="Sort" property="Sort" jdbcType="VARCHAR" />
+    <result column="Description" property="Description" jdbcType="VARCHAR" />
+    <result column="LoadTime" property="LoadTime" jdbcType="TIMESTAMP" />
+    <result column="Status" property="Status" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="ProgramDto" parameterClass="java.lang.String" >
+  	select * from  t_Program where ProgramID = #ProgramID#
+  </select>
+	
+	<delete id="delete" parameterClass="ProgramDto" >
+  	delete from t_Program where ProgramID = #ProgramID#
+  </delete>
+
+  <insert id="insert" parameterClass="ProgramDto" >
+  	insert into t_Program(ProgramID,ChannelID,ProgramName,ProgramURL,Duration,ProgramPic,PlayCnt,FlowerCnt,Sort,Description,LoadTime,Status)
+  	values (#ProgramID#,#ChannelID#,#ProgramName:VARCHAR#,#ProgramURL:VARCHAR#,#Duration:VARCHAR#,#ProgramPic:VARCHAR#,#PlayCnt:INT#,#FlowerCnt:INT#,#Sort:VARCHAR#,#Description:VARCHAR#,#LoadTime:TIMESTAMP#,#Status:VARCHAR#)
+  </insert>
+  
+  <update id="update" parameterClass="ProgramDto" >
+  	update t_Program  set ChannelID=#ChannelID#,ProgramName=#ProgramName#,ProgramURL=#ProgramURL#,Duration=#Duration#,
+  	ProgramPic=#ProgramPic#,PlayCnt=#PlayCnt#,FlowerCnt=#FlowerCnt#,Sort=#Sort#,Description=#Description# ,LoadTime=#LoadTime# ,Status=#Status# 
+  	 where ProgramID = #ProgramID#
+  </update>
+  <update id="updateflowercnt" parameterClass="ProgramDto" >
+  	update t_Program  set  FlowerCnt=FlowerCnt+#FlowerCnt# 
+  	 where ProgramID = #ProgramID#
+  </update>
+  
+  <select id="querylist" parameterClass="ProgramDto" resultMap="ProgramMap">
+  select * from t_Program
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="ChannelID">
+    ChannelID = #ChannelID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="ProgramID">
+    ProgramID = #ProgramID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+ <select id="selectbychannelid" resultClass="ProgramListBean" parameterClass="java.lang.String" >
+  	select ProgramID,ProgramName,Description,PlayCnt,LoadTime,ProgramPic,ProgramUrl from  t_Program where ChannelID = #ChannelID# and Status='1'
+  </select>
+
+	<select id="programlistnotify" resultClass="ProgramListNotifyBean" parameterClass="java.lang.String" >
+	  	select ChannelID,ProgramID,ProgramName,ProgramPic,ProgramUrl from  t_Program where ChannelID = #ChannelID# and Status='1' order by LoadTime desc 
+	  </select>
+ 
+</sqlMap>

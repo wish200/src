@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SMSVerifyCodeInfo">
+  <typeAlias alias="SMSVerifyCodeDto" type="com.huiting.xml.dto.SMSVerifyCodeDto"/>
+  <resultMap id="SMSVerifyCodeMap" class="SMSVerifyCodeDto" >
+    <result column="SourceType" property="SourceType" jdbcType="VARCHAR" />
+    <result column="PhoneNumber" property="PhoneNumber" jdbcType="VARCHAR" />
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="SmsCode" property="SmsCode" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="CreateTime" jdbcType="TIMESTAMP" />
+    <result column="VerifyTime" property="VerifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="SMSVerifyCodeDto" parameterClass="java.lang.String" >
+  	select * from  T_SMS_VerifiCode where SmsCode = #SmsCode#
+  </select>
+
+	<delete id="delete" parameterClass="SMSVerifyCodeDto" >
+  	delete from T_SMS_VerifiCode where SmsCode = #SmsCode#
+  </delete>
+
+  <insert id="insert" parameterClass="SMSVerifyCodeDto" >
+  	insert into T_SMS_VerifiCode(SourceType,PhoneNumber,UserID,SmsCode,CreateTime,VerifyTime)
+  	values (#SourceType#,#PhoneNumber#,#UserID:VARCHAR#,#SmsCode:VARCHAR#,#CreateTime:TIMESTAMP#,#VerifyTime:TIMESTAMP#)
+  </insert>
+  
+  <insert id="insertlist" parameterClass="java.util.List" >
+  	insert into T_SMS_VerifiCode(SourceType,PhoneNumber,SmsCode,UserID,CreateTime,VerifyTime)
+  	values 
+  	  <iterate  conjunction ="," >   
+        <![CDATA[  
+            (#test[].SourceType#, #test[].PhoneNumber#, #test[].SmsCode#,#test[].UserID#,#test[].CreateTime#,#test[].VerifyTime#)  
+        ]]>   
+    </iterate> 
+  </insert>
+  
+  <insert id="insertlisttest" parameterClass="java.util.List" >
+  	insert into T_SMS_VerifiCode(SourceType,PhoneNumber,SmsCode)
+  	values 
+  	  <iterate  conjunction ="," >   
+        <![CDATA[  
+            (#test[].SourceType#, #test[].PhoneNumber#, #test[].SmsCode#)  
+        ]]>   
+    </iterate> 
+  </insert>
+  
+  
+  <update id="update" parameterClass="SMSVerifyCodeDto" >
+  	update T_SMS_VerifiCode  set SourceType=#SourceType#,PhoneNumber=#PhoneNumber#,UserID=#UserID#,CreateTime=#CreateTime#,
+  	VerifyTime=#VerifyTime#  where SmsCode = #SmsCode#
+  </update>
+  
+  <select id="querylist" parameterClass="SMSVerifyCodeDto" resultClass="SMSVerifyCodeDto">
+  select * from T_SMS_VerifiCode
+  <dynamic prepend="WHERE">
+   <isNotNull prepend="AND" property="SourceType">
+    SourceType = #SourceType#
+   </isNotNull>
+   <isNotNull prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotNull>
+  </dynamic>
+ </select>
+ 
+</sqlMap>

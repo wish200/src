@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PictureInfo">
+  <typeAlias alias="PictureDto" type="com.huiting.xml.dto.PictureDto"/>
+  <resultMap id="PictureMap" class="PictureDto" >
+    <result column="PicID" property="PicID" jdbcType="VARCHAR" />
+    <result column="Modular" property="Modular" jdbcType="VARCHAR" />
+    <result column="BusiID" property="BusiID" jdbcType="VARCHAR" />
+    <result column="Serialno" property="Serialno" jdbcType="VARCHAR" />
+    <result column="PicType" property="PicType" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="PicName" property="PicName" jdbcType="VARCHAR" />
+    <result column="PicURL" property="PicURL" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="PictureDto" parameterClass="java.lang.String" >
+  	select * from  t_picture where PicID = #PicID#
+  </select>
+
+
+	<delete id="delete" parameterClass="PictureDto" >
+  	delete from t_picture where PicID = #PicID#
+  </delete>
+
+  <insert id="insert" parameterClass="PictureDto" >
+  	insert into t_picture(PicID,Modular,BusiID,Serialno,PicType,major,PicName,PicURL)
+  	values (#PicID#,#Modular#,#BusiID:VARCHAR#,#Serialno:INT#,#PicType:VARCHAR#,#major:VARCHAR#,#PicName:VARCHAR#,#PicURL:VARCHAR#)
+  </insert>
+  
+  <update id="update" parameterClass="PictureDto" >
+  	update t_picture  set Modular=#Modular#,BusiID=#BusiID#,Serialno=#Serialno#,PicType=#PicType#,
+  	major=#major#,PicName=#PicName#,PicURL=#PicURL#  where PicID = #PicID#
+  </update>
+  
+  <select id="querylist" parameterClass="PictureDto" resultClass="PictureDto">
+  select * from t_picture
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="BusiID">
+    BusiID = #BusiID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="Modular">
+    Modular = #Modular#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+</sqlMap>

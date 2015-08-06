@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CommentInfo">
+  <typeAlias alias="CommentDto" type="com.huiting.xml.dto.CommentDto"/>
+  <typeAlias alias="CommentListBean" type="com.huiting.xml.commentshow.bean.CommentListBean"/>
+  <resultMap id="CommentInfoMap" class="CommentDto" >
+    <result column="CommentID" property="CommentID" jdbcType="VARCHAR" />
+    <result column="Modular" property="Modular" jdbcType="VARCHAR" />
+    <result column="BusiID" property="BusiID" jdbcType="VARCHAR" />
+    <result column="ConcernedUserID" property="ConcernedUserID" jdbcType="VARCHAR" />
+    <result column="ConcernedNickName" property="ConcernedNickName" jdbcType="VARCHAR" />
+    <result column="CommentTime" property="CommentTime" jdbcType="TIMESTAMP" />
+    <result column="CommentText" property="CommentText" jdbcType="VARCHAR" />
+    <result column="ConcernedUserPic" property="ConcernedUserPic" jdbcType="VARCHAR" />
+    <result column="CommentStatus" property="CommentStatus" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="CommentDto" parameterClass="java.lang.String" >
+  	 select * from  t_comment where CommentID = #CommentID#
+   </select>
+   
+	<delete id="delete" parameterClass="CommentDto" >
+  	delete from t_comment where CommentID = #CommentID#
+  </delete>
+
+  <insert id="insert" parameterClass="CommentDto" >
+  	insert into t_comment(CommentID,Modular,BusiID,ConcernedUserID,ConcernedNickName,CommentTime,CommentText,ConcernedUserPic,CommentStatus)
+  	values (#CommentID#,#Modular#,#BusiID#,#ConcernedUserID:VARCHAR#,#ConcernedNickName:VARCHAR#,#CommentTime:TIMESTAMP#,#CommentText:VARCHAR#,#ConcernedUserPic:VARCHAR#,#CommentStatus:VARCHAR#)
+  </insert>
+  
+  <update id="update" parameterClass="CommentDto" >
+  	update t_comment  set Modular=#Modular#,BusiID=#BusiID#,ConcernedUserID=#ConcernedUserID#,ConcernedNickName=#ConcernedNickName#
+  	CommentTime=#CommentTime#,CommentText=#CommentText#,ConcernedUserPic=#ConcernedUserPic#,CommentStatus=#CommentStatus# where CommentID = #CommentID#
+  </update>
+  
+  <select id="querylist" resultMap="CommentInfoMap" parameterClass="CommentDto" >
+  select * from t_comment
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="Modular">
+    Modular = #Modular#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="BusiID">
+    BusiID = #BusiID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="ConcernedUserID">
+    ConcernedUserID = #ConcernedUserID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+    <select id="querylistbybusiid" resultClass="CommentListBean" parameterClass="java.lang.String">
+  	 select Modular,BusiID,ConcernedUserID,ConcernedNickName,ConcernedUserPic,CommentTime,CommentText from  t_comment where BusiID = #BusiID# and CommentStatus='1'
+   </select> 
+  
+  <select id="querylistbyuserid" resultClass="CommentListBean" parameterClass="java.lang.String" >
+  	select  Modular,BusiID,ConcernedUserID,ConcernedNickName,ConcernedUserPic,CommentTime,CommentText  from  t_comment where UserID = #UserID# and CommentStatus='1'
+  </select>
+ 
+</sqlMap>

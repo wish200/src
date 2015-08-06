@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ChannelInfo">
+  <typeAlias alias="ChannelDto" type="com.huiting.xml.dto.ChannelDto"/>
+  <typeAlias alias="ChannelListBean" type="com.huiting.xml.channellistshow.bean.ChannelListBean"/>
+  <resultMap id="ChannelMap" class="ChannelDto" >
+    <result column="ChannelID" property="ChannelID" jdbcType="VARCHAR" />
+    <result column="ChannelName" property="ChannelName" jdbcType="VARCHAR" />
+    <result column="ChannelDesc" property="ChannelDesc" jdbcType="VARCHAR" />
+    <result column="DJname" property="DJname" jdbcType="VARCHAR" />
+    <result column="DJdesc" property="DJdesc" jdbcType="VARCHAR" />
+    <result column="ProgramCnt" property="ProgramCnt" jdbcType="INT" />
+    <result column="FlowerCnt" property="FlowerCnt" jdbcType="INT" />
+    <result column="FansCnt" property="FansCnt" jdbcType="INT" />
+    <result column="ChannelPic" property="ChannelPic" jdbcType="VARCHAR" />
+    <result column="BackgroundPic" property="BackgroundPic" jdbcType="VARCHAR" />
+    <result column="Sort" property="Sort" jdbcType="VARCHAR" />
+    <result column="Status" property="Status" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="ChannelDto" parameterClass="java.lang.String" >
+  	select * from  t_channel where ChannelID = #ChannelID#  and Status='1'
+  </select>
+  
+
+
+  <delete id="delete" parameterClass="ChannelDto" >
+  	delete from t_channel where ChannelID = #ChannelID#
+  </delete>
+
+  <insert id="insert" parameterClass="ChannelDto" >
+  	insert into t_channel(ChannelID,ChannelName,ChannelDesc,DJname,DJdesc,ProgramCnt,FansCnt,FlowerCnt,ChannelPic,BackgroundPic,Sort,Status)
+  	values (#ChannelID#,#ChannelName#,#ChannelDesc:VARCHAR#,#DJname:VARCHAR#,#DJdesc:VARCHAR#,#ProgramCnt:INT#,#FansCnt:INT#,#FlowerCnt:INT#,#ChannelPic:VARCHAR#,#BackgroundPic:VARCHAR#,#Sort:VARCHAR#,#Status:VARCHAR#)
+  </insert>
+  
+  <update id="update" parameterClass="ChannelDto" >
+  	update t_channel  set ChannelName=#ChannelName#,ChannelDesc=#ChannelDesc#,DJname=#DJname#,DJdesc=#DJdesc#,
+  	ProgramCnt=#ProgramCnt#,FansCnt=#FansCnt#,FlowerCnt=#FlowerCnt#,ChannelPic=#ChannelPic#,BackgroundPic=#BackgroundPic#,Sort=#Sort#,Status=#Status# where ChannelID = #ChannelID#
+  </update>
+  
+  <update id="updateflowercnt" parameterClass="ChannelDto" >
+  	update t_channel  set  FlowerCnt=#FlowerCnt# 
+  	 where  ChannelID = #ChannelID#
+  </update>
+  <update id="updateprogramCnt" parameterClass="ChannelDto" >
+  	update t_channel  set  programCnt=#ProgramCnt# 
+  	 where  ChannelID = #ChannelID#
+  </update>
+  <update id="updatefansCnt" parameterClass="ChannelDto" >
+  	update t_channel  set  fansCnt=#FansCnt# 
+  	 where  ChannelID = #ChannelID#
+  </update>
+  
+  <select id="querylist" parameterClass="ChannelDto" resultMap="ChannelMap">
+  select * from t_channel
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="ChannelID">
+    ChannelID = #ChannelID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="Status">
+    Status = #Status#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+
+ 
+   <select id="querylistshow" resultClass="ChannelListBean" >
+  	select t_channel.ChannelID,t_channel.ChannelName,ChannelDesc,ProgramCnt,IFNULL(t_Subscribe.Status,'0') as IsSubscribe ,t_channel.ChannelPic
+  	from  t_channel left join t_Subscribe on t_channel.ChannelID=t_Subscribe.ChannelID
+  	where   t_channel.Status='1'
+  </select>
+ 
+</sqlMap>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+  <service name="HuiTing" type="A01"
+      param="com.huiting.xml.userlogin.bean.RequestBean"
+      method="handleXML"
+      classid="blUserLogin"
+      class="com.huiting.xml.userlogin.bl.BLUserLogin">
+  </service>
+    <service name="HuiTing" type="A02"
+      param="com.huiting.xml.userregist.bean.RequestBean"
+      method="handleXML"
+      classid="blUserRegist"
+      class="com.huiting.xml.userregist.bl.BLUserRegist">
+  </service>
+    <service name="HuiTing" type="T05"
+      param="com.huiting.xml.uploadheadpic.bean.RequestBean"
+      method="handleXML"
+      classid="blUploadHeadPic"
+      class="com.huiting.xml.uploadheadpic.bl.BLUploadHeadPic">
+  </service>
+  <service name="HuiTing" type="T06"
+      param="com.huiting.xml.uploadheadpic.bean.RequestBean"
+      method="handleXMLBackGroundPIC"
+      classid="blUploadHeadPic"
+      class="com.huiting.xml.uploadheadpic.bl.BLUploadHeadPic">
+  </service>
+  
+    <service name="HuiTing" type="A05"
+      param="com.huiting.xml.userupdate.bean.RequestBean"
+      method="handleXML"
+      classid="blUserUpdate"
+      class="com.huiting.xml.userupdate.bl.BLUserUpdate">
+  </service>
+    <service name="HuiTing" type="A06"
+      param="com.huiting.xml.msverify.bean.RequestBean"
+      method="handleXML"
+      classid="blMsVerify"
+      class="com.huiting.xml.msverify.bl.BLMsVerify">
+  </service>
+  <service name="HuiTing" type="A07"
+      param="com.huiting.xml.passwordupdate.bean.RequestBean"
+      method="handleXML"
+      classid="blPasswordUpdate"
+      class="com.huiting.xml.passwordupdate.bl.BLPasswordUpdate">
+  </service>
+    <service name="HuiTing" type="A08"
+      param="com.huiting.xml.verifylogin.bean.RequestBean"
+      method="handleXML"
+      classid="blVerifyLogin"
+      class="com.huiting.xml.verifylogin.bl.BLVerifyLogin">
+  </service>
+  
+   <service name="HuiTing" type="B01"
+      param="com.huiting.xml.picbookshow.bean.RequestBean"
+      method="handleXML"
+      classid="blPicbookShow"
+      class="com.huiting.xml.picbookshow.bl.BLPicbookShow">
+  </service>
+    <service name="HuiTing" type="B02"
+      param="com.huiting.xml.pichuibenshow.bean.RequestBean"
+      method="handleXML"
+      classid="blPicHuibenShow"
+      class="com.huiting.xml.pichuibenshow.bl.BLPicHuibenShow">
+  </service>
+  <service name="HuiTing" type="B03"
+      param="com.huiting.xml.audioshow.bean.RequestBean"
+      method="handleXML"
+      classid="blAudioShow"
+      class="com.huiting.xml.audioshow.bl.BLAudioShow">
+  </service>
+  <service name="HuiTing" type="B04"
+      param="com.huiting.xml.audiohuibenshow.bean.RequestBean"
+      method="handleXML"
+      classid="blAudioHuibenShow"
+      class="com.huiting.xml.audiohuibenshow.bl.BLAudioHuibenShow">
+  </service>
+  <service name="HuiTing" type="B05"
+      param="com.huiting.xml.album.bean.RequestBean"
+      method="handleXML"
+      classid="blAlbum"
+      class="com.huiting.xml.album.bl.BLAlbum">
+  </service>
+  <service name="HuiTing" type="B06"
+      param="com.huiting.xml.huibenshow.bean.RequestBean"
+      method="handleXML"
+      classid="blHuibenShow"
+      class="com.huiting.xml.huibenshow.bl.BLHuibenShow">
+  </service>
+  
+  
+  <service name="HuiTing" type="W01"
+      param="com.huiting.xml.majorpageshow.bean.RequestBean"
+      method="handleXML"
+      classid="blMajorPageShow"
+      class="com.huiting.xml.majorpageshow.bl.BLMajorPageShow">
+  </service>
+  <service name="HuiTing" type="W03"
+      param="com.huiting.xml.mysubscribe.bean.RequestBean"
+      method="handleXML"
+      classid="blMySubscribe"
+      class="com.huiting.xml.mysubscribe.bl.BLMySubscribe">
+  </service>
+  <service name="HuiTing" type="W04"
+      param="com.huiting.xml.myuserconcernedshow.bean.RequestBean"
+      method="handleXML"
+      classid="blUserConcernedShow"
+      class="com.huiting.xml.myuserconcernedshow.bl.BLUserConcernedShow">
+  </service>
+  <service name="HuiTing" type="W05"
+      param="com.huiting.xml.myuserconcernedshow.bean.RequestBean"
+      method="handleXMLU"
+      classid="blUserConcernedShow"
+      class="com.huiting.xml.myuserconcernedshow.bl.BLUserConcernedShow">
+  </service>
+  <service name="HuiTing" type="W06"
+      param="com.huiting.xml.mydown.bean.RequestBean"
+      method="handleXML"
+      classid="blMyDown"
+      class="com.huiting.xml.mydown.bl.BLMyDown">
+  </service>
+  <service name="HuiTing" type="W07"
+      param="com.huiting.xml.mystore.bean.RequestBean"
+      method="handleXML"
+      classid="blMyStore"
+      class="com.huiting.xml.mystore.bl.BLMyStore">
+  </service>
+  <service name="HuiTing" type="W08"
+      param="com.huiting.xml.audioshow.bean.RequestBean"
+      method="handleXML"
+      classid="blAudioShow"
+      class="com.huiting.xml.audioshow.bl.BLAudioShow">
+  </service>
+  
+  <service name="HuiTing" type="C01"
+      param="com.huiting.xml.picbookdelete.bean.RequestBean"
+      method="handleXML"
+      classid="blPicbookDelete"
+      class="com.huiting.xml.picbookdelete.bl.BLPicbookDelete">
+  </service>
+    <service name="HuiTing" type="C02"
+      param="com.huiting.xml.flowerget.bean.RequestBean"
+      method="handleXML"
+      classid="blFlowerGet"
+      class="com.huiting.xml.flowerget.bl.BLFlowerGet">
+  </service>
+  <service name="HuiTing" type="C03"
+      param="com.huiting.xml.userconcerned.bean.RequestBean"
+      method="handleXML"
+      classid="blUserConcerned"
+      class="com.huiting.xml.userconcerned.bl.BLUserConcerned">
+  </service>
+  <service name="HuiTing" type="C04"
+      param="com.huiting.xml.userconcerned.bean.RequestBean"
+      method="handleXMLU"
+      classid="blUserConcerned"
+      class="com.huiting.xml.userconcerned.bl.BLUserConcerned">
+  </service>
+  
+    
+    
+    <service name="HuiTing" type="C05"
+      param="com.huiting.xml.commenpublic.bean.RequestBean"
+      method="handleXML"
+      classid="blCommenPublish"
+      class="com.huiting.xml.commenpublic.bl.BLCommenPublish">
+  </service>
+    <service name="HuiTing" type="C06"
+      param="com.huiting.xml.commentshow.bean.RequestBean"
+      method="handleXML"
+      classid="blCommentShow"
+      class="com.huiting.xml.commentshow.bl.BLCommentShow">
+  </service>
+    <service name="HuiTing" type="C07"
+      param="com.huiting.xml.commentshow.bean.RequestBean"
+      method="handleXMLU"
+      classid="blCommentShow"
+      class="com.huiting.xml.commentshow.bl.BLCommentShow">
+  </service>
+    <service name="HuiTing" type="C08"
+      param="com.huiting.xml.activity.bean.RequestBean"
+      method="handleXML"
+      classid="blActivity"
+      class="com.huiting.xml.activity.bl.BLActivity">
+  </service>
+    <service name="HuiTing" type="C09"
+      param="com.huiting.xml.activityshow.bean.RequestBean"
+      method="handleXML"
+      classid="blActivityShow"
+      class="com.huiting.xml.activityshow.bl.BLActivityShow">
+  </service>
+  <service name="HuiTing" type="C10"
+      param="com.huiting.xml.store.bean.RequestBean"
+      method="handleXML"
+      classid="blStore"
+      class="com.huiting.xml.store.bl.BLStore">
+  </service>
+    
+    <service name="HuiTing" type="D01"
+      param="com.huiting.xml.channellistshow.bean.RequestBean"
+      method="handleXML"
+      classid="blChannelListShow"
+      class="com.huiting.xml.channellistshow.bl.BLChannelListShow">
+  </service>
+ <service name="HuiTing" type="D02"
+      param="com.huiting.xml.channeldetail.bean.RequestBean"
+      method="handleXML"
+      classid="blChannelDetail"
+      class="com.huiting.xml.channeldetail.bl.BLChannelDetail">
+  </service>
+  <service name="HuiTing" type="D03"
+      param="com.huiting.xml.programlist.bean.RequestBean"
+      method="handleXML"
+      classid="blProgramList"
+      class="com.huiting.xml.programlist.bl.BLProgramList">
+  </service>
+  <service name="HuiTing" type="D04"
+      param="com.huiting.xml.channelsubscribe.bean.RequestBean"
+      method="handleXML"
+      classid="blChannelSubscribe"
+      class="com.huiting.xml.channelsubscribe.bl.BLChannelSubscribe">
+  </service>
+  <service name="HuiTing" type="D05"
+      param="com.huiting.xml.channelsubscribe.bean.RequestBean"
+      method="handleXMLU"
+      classid="blChannelSubscribe"
+      class="com.huiting.xml.channelsubscribe.bl.BLChannelSubscribe">
+  </service>
+     
+    <service name="HuiTing" type="D06"
+      param="com.huiting.xml.programnotify.bean.RequestBean"
+      method="handleXML"
+      classid="blProgramNotify"
+      class="com.huiting.xml.programnotify.bl.BLProgramNotify">
+  </service>
+    
+     <service name="HuiTing" type="T01"
+      param="com.huiting.xml.picbookpublish.bean.RequestBean"
+      method="handleXML"
+      classid="blPicbookPublish"
+      class="com.huiting.xml.picbookpublish.bl.BLPicbookPublish">
+  </service>
+   <service name="HuiTing" type="T02"
+      param="com.huiting.xml.audiopublish.bean.RequestBean"
+      method="handleXML"
+      classid="blAudioPublish"
+      class="com.huiting.xml.audiopublish.bl.BLAudioPublish">
+  </service>
+   <service name="HuiTing" type="T03"
+      param="com.huiting.xml.pichuibenpublish.bean.RequestBean"
+      method="handleXML"
+      classid="blPicHuibenPublish"
+      class="com.huiting.xml.pichuibenpublish.bl.BLPicHuibenPublish">
+  </service>
+   <service name="HuiTing" type="T04"
+      param="com.huiting.xml.audiohuibenpublish.bean.RequestBean"
+      method="handleXML"
+      classid="blAudioHuibenPublish"
+      class="com.huiting.xml.audiohuibenpublish.bl.BLAudioHuibenPublish">
+  </service>
+    
+    <service name="HuiTing" type="E01"
+      param="com.huiting.xml.firstpage.bean.RequestBean"
+      method="handleXML"
+      classid="blFirstPage"
+      class="com.huiting.xml.firstpage.bl.BLFirstPage">
+  </service>
+</services>

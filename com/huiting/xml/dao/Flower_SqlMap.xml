@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="FlowerInfo">
+  <typeAlias alias="FlowerDto" type="com.huiting.xml.dto.FlowerDto"/>
+  <resultMap id="FlowerMap" class="FlowerDto" >
+    <result column="Modular" property="Modular" jdbcType="VARCHAR" />
+    <result column="BusiID" property="BusiID" jdbcType="VARCHAR" />
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="NickName" property="NickName" jdbcType="VARCHAR" />
+    <result column="FlowerCnt" property="FlowerCnt" jdbcType="INT" />
+    <result column="CommenTime" property="CommenTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="FlowerDto" parameterClass="FlowerDto" >
+  	select * from  t_flower where Modular = #Modular# and BusiID = #BusiID# 
+  </select>
+
+
+	<delete id="delete" parameterClass="FlowerDto" >
+  	delete from t_flower where  Modular = #Modular# and BusiID = #BusiID# 
+  </delete>
+
+  <insert id="insert" parameterClass="FlowerDto" >
+  	insert into t_flower(Modular,BusiID,UserID,NickName,FlowerCnt,CommenTime)
+  	values (#Modular#,#BusiID#,#UserID:VARCHAR#,#NickName:VARCHAR#,#FlowerCnt:INT#,#CommenTime:TIMESTAMP#)
+  </insert>
+  
+  <update id="update" parameterClass="FlowerDto" >
+  	update t_flower  set Modular=#Modular#,BusiID=#BusiID#,UserID=#UserID#,NickName=#NickName#,FlowerCnt=#FlowerCnt#,
+  	CommenTime=#CommenTime# where Modular = #Modular# and BusiID = #BusiID#
+  </update>
+  
+  <select id="querylist" parameterClass="FlowerDto" resultMap="FlowerMap">
+  select * from t_flower
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="Modular">
+    Modular = #Modular#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="BusiID">
+    BusiID = #BusiID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+ 
+ 
+</sqlMap>

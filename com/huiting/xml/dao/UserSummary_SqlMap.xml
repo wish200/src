@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserSummaryInfo">
+  <typeAlias alias="UserSummaryDto" type="com.huiting.xml.dto.UserSummaryDto"/>
+  <resultMap id="UserSummaryMap" class="UserSummaryDto" >
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="AttentionUserCnt" property="AttentionUserCnt" jdbcType="INT" />
+    <result column="AttentionActCnt" property="AttentionActCnt" jdbcType="INT" />
+    <result column="SubscribeChnlCnt" property="SubscribeChnlCnt" jdbcType="INT" />
+    <result column="HuibenCnt" property="HuibenCnt" jdbcType="INT" />
+    <result column="FansCnt" property="FansCnt" jdbcType="INT" />
+    <result column="FlowerCnt" property="FlowerCnt" jdbcType="INT" />
+    <result column="GiveFlowerCnt" property="GiveFlowerCnt" jdbcType="INT" />
+  </resultMap>
+
+
+	<select id="selectbyid" resultClass="UserSummaryDto" parameterClass="java.lang.String" >
+  	   select * from  t_user_summary where UserID = #UserID#
+    </select>
+	<select id="selectbyuserid" resultClass="UserSummaryDto" parameterClass="java.lang.String" >
+  	    select * from  t_user_summary where UserID = #UserID#
+    </select>
+
+	<delete id="delete" parameterClass="UserSummaryDto" >
+  		delete from t_user_summary where UserID = #UserID#
+    </delete>
+
+  <insert id="insert" parameterClass="UserSummaryDto" >
+  	insert into t_user_summary(UserID,AttentionUserCnt,AttentionActCnt,SubscribeChnlCnt,HuibenCnt,FansCnt,FlowerCnt,GiveFlowerCnt)
+  	values (#UserID#,#AttentionUserCnt:INT#,#AttentionActCnt:INT#,#SubscribeChnlCnt:INT#,#HuibenCnt:INT#,#FansCnt:INT#,#FlowerCnt:INT#,#GiveFlowerCnt:INT#)
+  </insert>
+  
+  <update id="update" parameterClass="UserSummaryDto" >
+  	update t_user_summary  set AttentionUserCnt=#AttentionUserCnt#,AttentionActCnt=#AttentionActCnt#,SubscribeChnlCnt=#SubscribeChnlCnt#,HuibenCnt=#HuibenCnt#,
+  	FansCnt=#FansCnt#,FlowerCnt=#FlowerCnt#,GiveFlowerCnt=#GiveFlowerCnt# where UserID = #UserID#
+  </update>
+
+  
+  <update id="updatecntfiled" parameterClass="java.util.HashMap" >
+  	update t_user_summary  set $field$=$field$+$cnt$ where UserID = #UserID#
+  </update>
+  
+</sqlMap>

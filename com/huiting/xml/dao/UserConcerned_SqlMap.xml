@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserConcernedInfo">
+  <typeAlias alias="UserConcernedDto" type="com.huiting.xml.dto.UserConcernedDto"/>
+  <typeAlias alias="ConcernedUserListBean" type="com.huiting.xml.myuserconcernedshow.bean.ConcernedUserListBean"/>
+  <resultMap id="UserConcernedMap" class="UserConcernedDto" >
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="ConcernedUserID" property="ConcernedUserID" jdbcType="VARCHAR" />
+    <result column="Status" property="Status" jdbcType="VARCHAR" />
+    <result column="ConcernedTime" property="ConcernedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="UserConcernedDto" parameterClass="UserConcernedDto" >
+  	select * from  t_user_concerned where UserID = #UserID# and ConcernedUserID = #ConcernedUserID#
+  </select>
+
+	<delete id="delete" parameterClass="UserConcernedDto" >
+  	delete from t_user_concerned where UserID = #UserID# and ConcernedUserID = #ConcernedUserID#
+  </delete>
+
+  <insert id="insert" parameterClass="UserConcernedDto" >
+  	insert into t_user_concerned(UserID,ConcernedUserID,Status,ConcernedTime)
+  	values (#UserID#,#ConcernedUserID#,#Status:VARCHAR#,#ConcernedTime:TIMESTAMP#)
+  </insert>
+  
+  <update id="updatestatus" parameterClass="UserConcernedDto" >
+  	update t_user_concerned set status=#status# where UserID=#UserID# and ConcernedUserID=#ConcernedUserID#
+  </update>
+
+  
+  <select id="querylist" parameterClass="UserConcernedDto" resultMap="UserConcernedMap">
+  select * from t_user_concerned
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="ConcernedUserID">
+    ConcernedUserID = #ConcernedUserID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+   <select id="selectfans" resultClass="ConcernedUserListBean" parameterClass="java.lang.String" >
+  	select t_user_baseinfo.UserID as ConcernedUserID,t_user_baseinfo.NickName as ConcernedUserNick,t_user_baseinfo.UserPic as ConcernedUserPicUrl,t_user_summary.HuibenCnt  
+	from  t_user_baseinfo, t_user_concerned,t_user_summary
+  	where  t_user_baseinfo.UserID=t_user_concerned.UserID and t_user_concerned.UserID= t_user_summary.UserID
+  	and t_user_concerned.ConcernedUserID=#UserID#
+  </select>
+   <select id="selectconcerned" resultClass="ConcernedUserListBean" parameterClass="java.lang.String" >
+  	select t_user_baseinfo.UserID as ConcernedUserID,t_user_baseinfo.NickName as ConcernedUserNick,t_user_baseinfo.UserPic as ConcernedUserPicUrl,t_user_summary.HuibenCnt  
+	from   t_user_baseinfo,t_user_concerned,t_user_summary
+  	where   t_user_baseinfo.UserID=t_user_concerned.ConcernedUserID and t_user_concerned.ConcernedUserID= t_user_summary.UserID
+  	and t_user_concerned.UserID=#UserID#
+  </select>
+
+  
+ 
+</sqlMap>

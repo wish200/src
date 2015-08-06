@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserLoginInfo">
+  <typeAlias alias="UserLoginDto" type="com.huiting.xml.dto.UserLoginDto"/>
+  <resultMap id="UserLoginMap" class="UserLoginDto" >
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="LoginTime" property="LoginTime" jdbcType="TIMESTAMP" />
+    <result column="LogoutTime" property="LogoutTime" jdbcType="TIMESTAMP" />
+    <result column="IP" property="IP" jdbcType="VARCHAR" />
+    <result column="Address" property="Address" jdbcType="VARCHAR" />
+  </resultMap>
+  
+	<select id="selectbyid" resultClass="UserLoginDto" parameterClass="java.lang.String" >
+  	select * from  t_user_login where UserID = #UserID#
+  </select>
+
+	<delete id="delete" parameterClass="UserLoginDto" >
+  	delete from t_user_login where UserID = #UserID#
+  </delete>
+
+  <insert id="insert" parameterClass="UserLoginDto" >
+  	insert into t_user_login(UserID,LoginTime,LogoutTime,IP,Address)
+  	values (#UserID#,#LoginTime#,#LogoutTime:TIMESTAMP#,#IP:VARCHAR#,#Address:VARCHAR#)
+  </insert>
+  
+  <update id="update" parameterClass="UserLoginDto" >
+  	update t_user_login  set LoginTime=#LoginTime#,LogoutTime=#LogoutTime#,IP=#IP#,Address=#Address#
+  	 where   UserID=#UserID#
+  </update>
+  
+    <select id="querylist" parameterClass="UserLoginDto" resultMap="UserLoginMap">
+  select * from t_user_login
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+
+ 
+</sqlMap>

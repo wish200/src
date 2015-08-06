@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="StoreInfo">
+  <typeAlias alias="StoreDto" type="com.huiting.xml.dto.StoreDto"/>
+  <typeAlias alias="StoreActivityListBean" type="com.huiting.xml.mystore.bean.ActivityListBean"/>
+  
+  <resultMap id="StoreMap" class="StoreDto" >
+  <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="ActivityID" property="ActivityID" jdbcType="VARCHAR" />
+    <result column="Status" property="Status" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="StoreDto" parameterClass="StoreDto" >
+  	select * from  t_Store where ActivityID = #ActivityID# and  UserID = #UserID#  and Status='1'
+  </select>
+  
+
+
+  <delete id="delete" parameterClass="StoreDto" >
+  	delete from t_Store where ActivityID = #ActivityID# and  UserID = #UserID# 
+  </delete>
+
+  <insert id="insert" parameterClass="StoreDto" >
+  	insert into t_Store(UserID,ActivityID,Status)
+  	values (#UserID#,#ActivityID#,#Status#)
+  </insert>
+  
+  <update id="update" parameterClass="StoreDto" >
+  	update t_Store  set Status=#Status#
+  	 where ActivityID = #ActivityID# AND UserID=#UserID#
+  </update>
+   
+  <select id="querylist" parameterClass="StoreDto" resultMap="StoreMap">
+  select * from t_Store
+  <dynamic prepend="WHERE">
+   <isNotNull prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotNull>
+   
+  </dynamic>
+ </select>
+ 
+
+	<select id="querystorelist" resultClass="StoreActivityListBean" parameterClass="StoreDto" >
+  	select  t_Activity.ActivityID,t_Activity.ActivityName,t_Activity.ActivityDESC,t_Activity.ActivityPicURL,t_Activity.ActivityTime 
+  	from  t_Store,t_Activity where t_Store.ActivityID=t_Activity.ActivityID 
+  	and   UserID = #UserID#  and Status='1'
+  </select>
+ 
+ 
+</sqlMap>

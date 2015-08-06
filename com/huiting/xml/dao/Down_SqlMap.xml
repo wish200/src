@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="DownInfo">
+  <typeAlias alias="DownDto" type="com.huiting.xml.dto.DownDto"/>
+  <typeAlias alias="DownProgramListBean" type="com.huiting.xml.mydown.bean.ProgramListBean"/>
+  
+  <resultMap id="DownMap" class="DownDto" >
+    <result column="ProgramID" property="ProgramID" jdbcType="VARCHAR" />
+    <result column="ProgramName" property="ProgramName" jdbcType="VARCHAR" />
+    <result column="ProgramURL" property="ProgramURL" jdbcType="VARCHAR" />
+    <result column="ProgramPic" property="ProgramPic" jdbcType="VARCHAR" />
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="NickName" property="NickName" jdbcType="VARCHAR" />
+    <result column="ProgramSize" property="ProgramSize" jdbcType="VARCHAR" />
+    <result column="DownLoadTime" property="DownLoadTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+	<select id="selectbyid" resultClass="DownDto" parameterClass="DownDto" >
+  	select * from  t_Down where AudioID = #ProgramID#  and Status='1' and  UserID=#UserID#
+  </select>
+  
+
+
+  <delete id="delete" parameterClass="DownDto" >
+  	delete from t_Down where ProgramID = #ProgramID# and  UserID=#UserID#
+  </delete>
+
+  <insert id="insert" parameterClass="DownDto" >
+  	insert into t_Down(ProgramID,ProgramName,ProgramURL,ProgramPic,UserID,NickName,DownLoadTime,ProgramSize)
+  	values (#ProgramID#,#ProgramName#,#ProgramURL#,#ProgramPic#,#UserID:VARCHAR#,#NickName:VARCHAR#,#DownLoadTime:TIMESTAMP#,#ProgramSize:VARCHAR#)
+  </insert>
+  
+  <update id="update" parameterClass="DownDto" >
+  	update t_Down  set ProgramID=#ProgramID#,ProgramName=#ProgramName#,ProgramURL=#ProgramURL#,ProgramPic=#ProgramPic#,UserID=#UserID#,NickName=#NickName#,DownLoadTime=#DownLoadTime#,ProgramSize=#ProgramSize#
+  	 where ProgramID = #ProgramID# and UserID=#UserID#
+  </update>
+   
+  <select id="querylist" parameterClass="DownDto" resultMap="DownMap">
+  select * from t_Down
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="ProgramID">
+    ProgramID = #ProgramID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+ <select id="querylistbyuserid" resultClass="DownProgramListBean" parameterClass="java.lang.String" >
+  	select  Modular,BusiID,ConcernedUserID,ConcernedNickname,ConcernedUserPic,CommentTime,CommentText  from  t_comment where UserID = #UserID# and CommentStatus='1'
+  </select>
+ 
+</sqlMap>

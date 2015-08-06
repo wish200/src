@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserBaseInfo">
+  <typeAlias alias="UserBaseInfoDto" type="com.huiting.xml.dto.UserBaseInfoDto"/>
+  <typeAlias alias="ConcernedUserListBean" type="com.huiting.xml.myuserconcernedshow.bean.ConcernedUserListBean"/>
+  <resultMap id="UserBaseInfoMap" class="UserBaseInfoDto" >
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="Password" property="Password" jdbcType="VARCHAR" />
+    <result column="NickName" property="NickName" jdbcType="VARCHAR" />
+    <result column="Sex" property="Sex" jdbcType="VARCHAR" />
+    <result column="BirthDay" property="BirthDay" jdbcType="VARCHAR" />
+    <result column="RealName" property="RealName" jdbcType="VARCHAR" />
+    <result column="PhoneNumber" property="PhoneNumber" jdbcType="VARCHAR" />
+    <result column="Weixin" property="Weixin" jdbcType="VARCHAR" />
+    <result column="QQ" property="QQ" jdbcType="VARCHAR" />
+    <result column="Mail" property="Mail" jdbcType="VARCHAR" />
+    <result column="Province" property="Province" jdbcType="VARCHAR" />
+    <result column="City" property="City" jdbcType="VARCHAR" />
+    <result column="Description" property="Description" jdbcType="VARCHAR" />
+    <result column="UserPic" property="UserPic" jdbcType="VARCHAR" />
+    <result column="BackGroundPIC" property="BackGroundPIC" jdbcType="VARCHAR" />
+     <result column="CreateTime" property="CreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+
+ <select id="selectbyid" resultClass="UserBaseInfoDto" parameterClass="java.lang.String" >
+  	select * from  t_user_baseinfo where UserID = #UserID#
+  </select>
+  
+  <select id="selectbyphonenumber" resultClass="UserBaseInfoDto" parameterClass="java.lang.String" >
+  	select * from  t_user_baseinfo where PhoneNumber = #PhoneNumber# limit 0,1
+  </select>
+  
+  <delete id="delete" parameterClass="UserBaseInfoDto" >
+  	delete from t_user_baseinfo where UserID = #UserID#
+  </delete>
+
+  <insert id="insert" parameterClass="UserBaseInfoDto" >
+  	insert into t_user_baseinfo(UserID,Password,NickName,Sex,BirthDay,RealName,PhoneNumber,Weixin,QQ,Mail,Province,City,Description,UserPic,BackGroundPIC)
+  	values (#UserID#,#Password#,#NickName:VARCHAR#,#Sex:VARCHAR#,#BirthDay:VARCHAR#,#RealName:VARCHAR#,#PhoneNumber:VARCHAR#,#Weixin:VARCHAR#,#QQ:VARCHAR#,#Mail:VARCHAR#,#Province:VARCHAR#,#City:VARCHAR#,#Description:VARCHAR#,#UserPic:VARCHAR#,#BackGroundPIC:VARCHAR#)
+  </insert>
+  
+  <update id="update" parameterClass="UserBaseInfoDto" >
+  	update t_user_baseinfo  set Password=#Password#,NickName=#NickName#,Sex=#Sex#,BirthDay=#BirthDay#,RealName=#RealName#,
+  	PhoneNumber=#PhoneNumber#,Weixin=#Weixin#,QQ=#QQ#,Mail=#Mail#,Province=#Province#,City=#City#,
+  	Description=#Description#,UserPic=#UserPic#,BackGroundPIC=#BackGroundPIC# where UserID = #UserID#
+  </update>
+  
+  <update id="updateuserpic" parameterClass="java.util.Map" >
+  	update t_user_baseinfo  set UserPic=#UserPic#  where UserID = #UserID#
+  </update>
+  <update id="updatebackgroundpic" parameterClass="java.util.Map" >
+  	update t_user_baseinfo  set BackGroundPIC=#BackGroundPIC#  where UserID = #UserID#
+  </update>
+  <update id="updatepassword" parameterClass="java.util.Map" >
+  	update t_user_baseinfo  set Password=#Password#  where UserID=#UserID#
+  </update>
+  
+  <select id="querylist" parameterClass="UserBaseInfoDto" resultClass="UserBaseInfoDto">
+  select * from t_user_baseinfo
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="PhoneNumber">
+    PhoneNumber = #PhoneNumber#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+  
+
+ 
+</sqlMap>

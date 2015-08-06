@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PicBookInfo">
+  <typeAlias alias="PicBookDto" type="com.huiting.xml.dto.PicBookDto"/>
+  <typeAlias alias="PicbookListBean" type="com.huiting.xml.picbookshow.bean.PicbookListBean"/>
+  <resultMap id="PicBookMap" class="PicBookDto" >
+    <result column="PicbookID" property="PicbookID" jdbcType="VARCHAR" />
+    <result column="PicbookName" property="PicbookName" jdbcType="VARCHAR" />
+    <result column="PicbookURL" property="PicbookURL" jdbcType="VARCHAR" />
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="NickName" property="NickName" jdbcType="VARCHAR" />
+    <result column="PicCatalog" property="PicCatalog" jdbcType="VARCHAR" />
+    <result column="PicScene" property="PicScene" jdbcType="VARCHAR" />
+    <result column="PicBookSource" property="PicBookSource" jdbcType="VARCHAR" />
+    <result column="UploadTime" property="UploadTime" jdbcType="TIMESTAMP" />
+    <result column="PicbookStatus" property="PicbookStatus" jdbcType="VARCHAR" />
+    <result column="FlowerCnt" property="FlowerCnt" jdbcType="INT" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="PicBookDto" parameterClass="java.lang.String" >
+  	select * from  t_picbook where PicbookID = #PicbookID#
+  </select>
+  
+
+  
+  <select id="selectbyStatus" resultClass="PicBookDto" parameterClass="java.lang.String" >
+  	select * from  t_picbook where PicbookStatus = #PicbookStatus# 
+  </select>
+
+
+
+	<delete id="delete" parameterClass="PicBookDto" >
+  	delete from t_picbook where PicbookID = #PicbookID#
+  </delete>
+
+  <insert id="insert" parameterClass="PicBookDto" >
+  	insert into t_picbook(PicbookID,PicbookName,PicbookURL,UserID,NickName,PicCatalog,PicScene,PicBookSource,UploadTime,PicbookStatus,FlowerCnt)
+  	values (#PicbookID#,#PicbookName#,#PicbookURL#,#UserID:VARCHAR#,#NickName:VARCHAR#,#PicCatalog:VARCHAR#,#PicScene:VARCHAR#,#PicBookSource:VARCHAR#,#UploadTime:TIMESTAMP#,#PicbookStatus:VARCHAR#,#FlowerCnt:VARCHAR#)
+  </insert>
+  
+  
+  <update id="update" parameterClass="PicBookDto" >
+  	update t_picbook  set PicbookName=#PicbookName#,PicbookURL=#PicbookURL#,UserID=#UserID#,NickName=#NickName#,PicCatalog=#PicCatalog#,
+  	PicScene=#PicScene#,PicBookSource=#PicBookSource#,UploadTime=#UploadTime#,PicbookStatus=#PicbookStatus#,FlowerCnt=#FlowerCnt# 
+  	where PicbookID = #PicbookID#
+  </update>
+  
+  <update id="updatestatus" parameterClass="PicBookDto" >
+  	update t_picbook  set  PicbookStatus=#PicbookStatus# 
+  	where PicbookID = #PicbookID# and UserID=#UserID#
+  </update>
+  
+  <select id="queryList" parameterClass="PicBookDto" resultMap="PicBookMap">
+  select * from t_picbook
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="PicbookID">
+    PicbookID = #PicbookID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+ <select id="querylistbyUserid" resultClass="PicbookListBean" parameterClass="java.lang.String" >
+  	select UserID,PicbookID,PicbookName,PicbookURL,PicScene from  t_picbook where UserID = #UserID# and PicbookStatus='1'
+  </select>
+ <select id="querylist" resultClass="PicbookListBean"  >
+  	select UserID,PicbookID,PicbookName,PicbookURL,PicScene from  t_picbook where PicbookStatus='1'
+  </select>
+</sqlMap>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="HuibenInfo">
+  <typeAlias alias="HuibenDto" type="com.huiting.xml.dto.HuibenDto"/>
+  <typeAlias alias="HuibenListBean" type="com.huiting.xml.huibenshow.bean.HuibenListBean"/>
+   
+  <resultMap id="HuibenMap" class="HuibenDto" >
+    <result column="HuibenID" property="HuibenID" jdbcType="VARCHAR" />
+    <result column="PicbookID" property="PicbookID" jdbcType="VARCHAR" />
+    <result column="PicbookName" property="PicbookName" jdbcType="VARCHAR" />
+    <result column="PicbookURL" property="PicbookURL" jdbcType="VARCHAR" />
+    <result column="PicScene" property="PicScene" jdbcType="VARCHAR" />
+    <result column="AudioID" property="AudioID" jdbcType="VARCHAR" />
+    <result column="AudioName" property="AudioName" jdbcType="VARCHAR" />
+    <result column="AudioURL" property="AudioURL" jdbcType="VARCHAR" />
+    <result column="AudioLength" property="AudioLength" jdbcType="VARCHAR" />
+    <result column="AudioContent" property="AudioContent" jdbcType="VARCHAR" />
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="NickName" property="NickName" jdbcType="VARCHAR" />
+    <result column="UserPic" property="UserPic" jdbcType="VARCHAR" />
+    <result column="FlowerCnt" property="FlowerCnt" jdbcType="INT" />
+    <result column="Status" property="Status" jdbcType="VARCHAR" />
+    <result column="CommentCnt" property="CommentCnt" jdbcType="INT" />
+    <result column="CreateTime" property="CreateTime" jdbcType="TIMESTAMP" />
+    <result column="Flag" property="Flag" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+	<select id="selectbyid" resultClass="HuibenDto" parameterClass="java.lang.String" >
+  	select * from  t_Huiben where HuibenID = #HuibenID#  
+  </select>
+  
+
+
+  <delete id="delete" parameterClass="HuibenDto" >
+  	delete from t_Huiben where HuibenID = #HuibenID#
+  </delete>
+
+  <insert id="insert" parameterClass="HuibenDto" >
+  	insert into t_Huiben(HuibenID,PicbookID,PicbookName,PicbookURL,PicScene,AudioID,AudioName,AudioURL,AudioLength,AudioContent,UserID,NickName,UserPic,FlowerCnt,Status,CommentCnt,CreateTime,Flag)
+  	values (#HuibenID#,#PicbookID#,#PicbookName#,#PicbookURL#,#PicScene:VARCHAR#,#AudioID:VARCHAR#,#AudioName:VARCHAR#,#AudioURL:VARCHAR#,#AudioLength:VARCHAR#,#AudioContent:VARCHAR#,#UserID:VARCHAR#,#NickName:VARCHAR#,#UserPic:VARCHAR#,#FlowerCnt:INT#,#Status:VARCHAR#,#CommentCnt:INT#,#CreateTime:TIMESTAMP#,#Flag:VARCHAR#)
+  </insert>
+  
+  <update id="update" parameterClass="HuibenDto" >
+  	update t_Huiben  set PicbookID=#PicbookID#,PicbookName=#PicbookName#,PicbookURL=#PicbookURL#,PicScene=#PicScene#,AudioID=#AudioID#,AudioName=#AudioName#,AudioURL=#AudioURL#,AudioLength=#AudioLength#,AudioContent=#AudioContent#,UserID=#UserID#,NickName=#NickName#,UserPic=#UserPic#,FlowerCnt=#FlowerCnt#,Status=#Status#,CommentCnt=#CommentCnt#,CreateTime=#CreateTime#,Flag=#Flag#
+  	 where HuibenID = #HuibenID# 
+  </update>
+   
+  <select id="querylist" parameterClass="HuibenDto" resultMap="HuibenMap">
+  select * from t_Huiben
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="HuibenID">
+    HuibenID = #HuibenID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+  <select id="queryhuibenshow" parameterClass="HuibenDto" resultClass="HuibenListBean">
+  select * from t_Huiben
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="HuibenID">
+    HuibenID = #HuibenID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="Flag">
+    Flag = #Flag#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+ <update id="updatehuibenflower" parameterClass="HuibenDto" >
+  	update t_Huiben  set FlowerCnt=FlowerCnt+#FlowerCnt#
+  	 where HuibenID = #HuibenID# 
+  </update>
+ 
+ 
+</sqlMap>

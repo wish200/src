@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="AlbumInfo">
+  <typeAlias alias="AlbumDto" type="com.huiting.xml.dto.AlbumDto"/>
+  <resultMap id="AlbumMap" class="AlbumDto" >
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="NickName" property="NickName" jdbcType="VARCHAR" />
+    <result column="AudioID" property="AudioID" jdbcType="VARCHAR" />
+    <result column="AudioName" property="AudioName" jdbcType="VARCHAR" />
+    <result column="AudioURL" property="AudioURL" jdbcType="VARCHAR" />
+    <result column="BackGoundPic" property="BackGoundPic" jdbcType="VARCHAR" />
+    <result column="AudioContent" property="AudioContent" jdbcType="VARCHAR" />
+    <result column="AudioLength" property="AudioLength" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="CreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+	<select id="selectbyid" resultClass="AlbumDto" parameterClass="AlbumDto" >
+  	select * from  t_Album where AudioID = #AudioID#  and Status='1' and  UserID=#UserID#
+  </select>
+  
+  <delete id="delete" parameterClass="AlbumDto" >
+  	delete from t_Album where AudioID = #AudioID# and  UserID=#UserID#
+  </delete>
+
+  <insert id="insert" parameterClass="AlbumDto" >
+  	insert into t_Album(UserID,NickName,AudioID,AudioName,AudioURL,BackGoundPic,AudioContent,AudioLength,CreateTime)
+  	values (#UserID#,#NickName#,#AudioID#,#AudioName#,#AudioURL:VARCHAR#,#BackGoundPic:VARCHAR#,#AudioContent:VARCHAR#,#AudioLength:VARCHAR#,#CreateTime:TIMESTAMP#)
+  </insert>
+  
+  <update id="update" parameterClass="AlbumDto" >
+  	update t_Album  set NickName=#NickName#,AudioName=#AudioName#,AudioURL=#AudioURL#,BackGoundPic=#BackGoundPic#,AudioContent=#AudioContent#,AudioLength=#AudioLength#,CreateTime=#CreateTime#
+  	 where AudioID = #AudioID# and UserID=#UserID#
+  </update>
+   
+  <select id="querylist" parameterClass="AlbumDto" resultMap="AlbumMap">
+  select * from t_Album
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+    <isNotEmpty prepend="AND" property="AudioID" >  
+                AudioID = #AudioID#  
+    </isNotEmpty>
+    
+  </dynamic>
+ </select>
+ 
+ <select id="querylistbyuserid" resultClass="AlbumDto" parameterClass="java.lang.String" >
+  	select * from  t_Album where  Status='1' and  UserID=#UserID#
+  </select>
+
+ 
+</sqlMap>

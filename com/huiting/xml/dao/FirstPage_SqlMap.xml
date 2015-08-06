@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="FirstPageInfo">
+  <typeAlias alias="FirstPageDto" type="com.huiting.xml.dto.FirstPageDto"/>
+  <typeAlias alias="FirstPicListBean" type="com.huiting.xml.firstpage.bean.FirstPicListBean"/>
+  
+  <resultMap id="FirstPageMap" class="FirstPageDto" >
+    <result column="ID" property="ID" jdbcType="INT" />
+    <result column="PicUrl" property="PicUrl" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="CreateTime" jdbcType="TIMESTAMP"/>
+    <result column="Status" property="Status" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+
+  <select id="selectByStatus" resultClass="FirstPicListBean" parameterClass="java.lang.String" >
+  	select PicUrl as FirstPicUrl from  t_firstpage where Status= #Status#
+  </select>
+   
+ 
+</sqlMap>

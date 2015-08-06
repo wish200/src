@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="AudioHuibenInfo">
+  <typeAlias alias="AudioHuibenDto" type="com.huiting.xml.dto.AudioHuibenDto"/>
+  <typeAlias alias="AudioHuibenListBean" type="com.huiting.xml.audiohuibenshow.bean.HuibenListBean"/>
+   
+  <resultMap id="AudioHuibenMap" class="AudioHuibenDto" >
+    <result column="HuibenID" property="HuibenID" jdbcType="VARCHAR" />
+    <result column="PicbookID" property="PicbookID" jdbcType="VARCHAR" />
+    <result column="PicbookName" property="PicbookName" jdbcType="VARCHAR" />
+    <result column="PicbookURL" property="PicbookURL" jdbcType="VARCHAR" />
+    <result column="PicScene" property="PicScene" jdbcType="VARCHAR" />
+    <result column="AudioID" property="AudioID" jdbcType="VARCHAR" />
+    <result column="AudioName" property="AudioName" jdbcType="VARCHAR" />
+    <result column="AudioURL" property="AudioURL" jdbcType="VARCHAR" />
+    <result column="AudioLength" property="AudioLength" jdbcType="VARCHAR" />
+    <result column="AudioContent" property="AudioContent" jdbcType="VARCHAR" />
+    <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="NickName" property="NickName" jdbcType="VARCHAR" />
+    <result column="UserPic" property="UserPic" jdbcType="VARCHAR" />
+    <result column="FlowerCnt" property="FlowerCnt" jdbcType="INT" />
+    <result column="Status" property="Status" jdbcType="VARCHAR" />
+    <result column="CommentCnt" property="CommentCnt" jdbcType="INT" />
+    <result column="CreateTime" property="CreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+	<select id="selectbyid" resultClass="AudioHuibenDto" parameterClass="java.lang.String" >
+  	select * from  t_AudioHuiben where HuibenID = #HuibenID#  
+  </select>
+  
+
+
+  <delete id="delete" parameterClass="AudioHuibenDto" >
+  	delete from t_AudioHuiben where HuibenID = #HuibenID#
+  </delete>
+
+  <insert id="insert" parameterClass="AudioHuibenDto" >
+  	insert into t_AudioHuiben(HuibenID,PicbookID,PicbookName,PicbookURL,PicScene,AudioID,AudioName,AudioURL,AudioLength,AudioContent,UserID,NickName,UserPic,FlowerCnt,Status,CommentCnt,CreateTime)
+  	values (#HuibenID#,#PicbookID#,#PicbookName#,#PicbookURL#,#PicScene:VARCHAR#,#AudioID:VARCHAR#,#AudioName:VARCHAR#,#AudioURL:VARCHAR#,#AudioLength:VARCHAR#,#AudioContent:VARCHAR#,#UserID:VARCHAR#,#NickName:VARCHAR#,#UserPic:VARCHAR#,#FlowerCnt:INT#,#Status:VARCHAR#,#CommentCnt:INT#,#CreateTime:TIMESTAMP#)
+  </insert>
+  
+  <update id="update" parameterClass="AudioHuibenDto" >
+  	update t_AudioHuiben  set PicbookID=#PicbookID#,PicbookName=#PicbookName#,PicbookURL=#PicbookURL#,PicScene=#PicScene#,AudioID=#AudioID#,AudioName=#AudioName#,AudioURL=#AudioURL#,AudioLength=#AudioLength#,AudioContent=#AudioContent#,UserID=#UserID#,NickName=#NickName#,UserPic=#UserPic#,FlowerCnt=#FlowerCnt#,Status=#Status#,CommentCnt=#CommentCnt#,CreateTime=#CreateTime#
+  	 where HuibenID = #HuibenID# 
+  </update>
+   
+  <select id="querylist" parameterClass="AudioHuibenDto" resultMap="AudioHuibenMap">
+  select * from t_AudioHuiben
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="HuibenID">
+    HuibenID = #HuibenID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+  <select id="queryhuibenshow" parameterClass="AudioHuibenDto" resultClass="AudioHuibenListBean">
+  select * from t_AudioHuiben
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="HuibenID">
+    HuibenID = #HuibenID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+ <update id="updateaudiohuibenflower" parameterClass="AudioHuibenDto" >
+  	update t_audioHuiben  set FlowerCnt=FlowerCnt+#FlowerCnt#
+  	 where HuibenID = #HuibenID# 
+  </update>
+ 
+ 
+</sqlMap>

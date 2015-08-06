@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SubscribeInfo">
+  <typeAlias alias="SubscribeDto" type="com.huiting.xml.dto.SubscribeDto"/>
+  <typeAlias alias="SubscribeChannelListBean" type="com.huiting.xml.mysubscribe.bean.ChannelListBean"/>
+  <resultMap id="SubscribeMap" class="SubscribeDto" >
+    <result column="ChannelID" property="ChannelID" jdbcType="VARCHAR" />
+     <result column="UserID" property="UserID" jdbcType="VARCHAR" />
+    <result column="Status" property="Status" jdbcType="VARCHAR" />
+    <result column="SubscribeTime" property="SubscribeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+
+	<select id="selectbyid" resultClass="SubscribeDto" parameterClass="SubscribeDto" >
+  	select * from  t_Subscribe where UserID = #UserID# and ChannelID=#ChannelID#
+  </select>
+
+	
+	<delete id="delete" parameterClass="SubscribeDto" >
+  	delete from t_Subscribe where UserID = #UserID# and ChannelID=#ChannelID#
+  </delete>
+
+  <insert id="insert" parameterClass="SubscribeDto" >
+  	insert into t_Subscribe(UserID,ChannelID,Status,SubscribeTime)
+  	values (#UserID#,#ChannelID#,#Status#,#SubscribeTime:TIMESTAMP#)
+  </insert>
+  <update id="update" parameterClass="SubscribeDto" >
+  	update t_Subscribe  set Status=#Status#,SubscribeTime=#SubscribeTime#
+  	  where UserID = #UserID# and ChannelID=#ChannelID#
+  </update>
+  <update id="updatestatus" parameterClass="SubscribeDto" >
+  	update t_Subscribe  set Status=#Status#  where UserID = #UserID# and ChannelID=#ChannelID#
+  </update>
+  
+  <select id="querylist" parameterClass="SubscribeDto" resultClass="SubscribeDto">
+  select * from t_Subscribe
+  <dynamic prepend="WHERE">
+   <isNotEmpty prepend="AND" property="UserID">
+    UserID = #UserID#
+   </isNotEmpty>
+   <isNotEmpty prepend="AND" property="ChannelID">
+    ChannelID = #ChannelID#
+   </isNotEmpty>
+  </dynamic>
+ </select>
+ 
+ <select id="querylistbyuserid" resultClass="SubscribeChannelListBean" parameterClass="java.lang.String" >
+  	select t_Subscribe.ChannelID,t_channel.ChannelName,t_channel.ChannelPic,t_channel.ChannelDesc from  t_Subscribe,t_channel 
+  	where t_Subscribe.ChannelID=t_channel.ChannelID and  UserID = #UserID# 
+  </select>
+ 
+</sqlMap>
