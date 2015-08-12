@@ -60,34 +60,37 @@ public class requestdemo {
 		param.put("RequestType", "T06");		
 		fileHashMap.put("BackGroundPIC", "D://test.png");*/
 		
-		/*param.put("UserID", "6127445");
-		param.put("NickName", "哈哈");
+		// audio
+		/*param.put("UserID", "5216767");
+		param.put("NickName", "怪蜀黍");
 		param.put("RequestType", "T02");
-		param.put("AudioName", "mingxing.mp3");
+		param.put("AudioName", "天生一对");
 		param.put("AudioSource", "");
 		param.put("AudioLength", "05:20");
-		param.put("AudioContent", "河水哗啦啦啦");
+		param.put("AudioContent", "睡觉了");
 		
-		fileHashMap.put("filepath", "D://mingxing.mp3");*/
+		fileHashMap.put("filepath", "D:\\07\\天生一对.mp3");*/
 		
-		/*param.put("UserID", "6127445");
+		
+		//picbook
+		param.put("UserID", "5255427");
 		param.put("NickName", "哈哈");
 		param.put("RequestType", "T01");
-		param.put("PicbookName", "huitu");
+		param.put("PicbookName", "谢雨桐");
 		param.put("PicScene", "场景");
 		param.put("PicBookSource", "");
 		
-		fileHashMap.put("filepath", "D://huitu.png");*/
+		fileHashMap.put("filepath", "D:\\07\\谢雨桐 男.jpg");
 		
 		
 		/*param.put("PicbookUserID", "huitu");
 		param.put("PicbookID", "P6173657");
 		param.put("PicbookName", "huitu");
-		param.put("PicbookURL", "http://120.132.70.11:8080/huiting/files/6127445/huitu.png");
+		param.put("PicbookURL", "http://120.132.70.11:8080/huiting/files/5216767/huitu.png");
 		param.put("PicScene", "场景");
-		param.put("UserID", "6127445");
+		param.put("UserID", "5216767");
 		param.put("NickName", "哈哈");
-		param.put("UserPic", "http://120.132.70.11:8080/huiting/files/6127445/test.png");
+		param.put("UserPic", "http://120.132.70.11:8080/huiting/files/5216767/test.png");
 		param.put("AudioName", "跑啊跑");
 		param.put("AudioLength", "3:20");
 		param.put("AudioContent", "大酱");
@@ -98,29 +101,29 @@ public class requestdemo {
 		/*param.put("PicbookID", "");
 		param.put("PicbookName", "test1");
 		param.put("PicScene", "场景1");
-		param.put("UserID", "6127445");
+		param.put("UserID", "5216767");
 		param.put("NickName", "哈哈");
-		param.put("UserPic", "http://120.132.70.11:8080/huiting/files/6127445/test.png");
+		param.put("UserPic", "http://120.132.70.11:8080/huiting/files/5216767/test.png");
 		param.put("AudioID", "A7322524");
-		param.put("AudioUserID", "61274451");
+		param.put("AudioUserID", "52167671");
 		param.put("AudioName", "mingxing.mp3");
-		param.put("AudioURL", "http://120.132.70.11:8080/huiting/files/6127445/mingxing.mp3");
+		param.put("AudioURL", "http://120.132.70.11:8080/huiting/files/5216767/mingxing.mp3");
 		param.put("AudioLength", "05:20");
 		param.put("AudioContent", "河水哗啦啦啦");
 		param.put("RequestType", "T03");
 		fileHashMap.put("filepath", "D://test.png");*/
 		
 		
-		param.put("RequestType", "C08");
+		/*param.put("RequestType", "C08");
 		param.put("ActivityName", "那么");
 		param.put("ActivityType", "01");
 		param.put("ActivityDESC", "aaaa");
-		fileHashMap.put("filepath", "D://test.png");
+		fileHashMap.put("filepath", "D://test.png");*/
 		
 		//new requestdemo().uploadFile("D://test.png","testfilekey",RequestURL,param);
 		//new requestdemo().uploadFile("D://mingxing.mp3","testfilekey",RequestURL,param);
 		
-		String RequestURL ="http://localhost:8080/huitingimg/UploadServlet";
+		String RequestURL ="http://120.132.70.11:8080/huiting/UploadServlet";
 		
 		
 		

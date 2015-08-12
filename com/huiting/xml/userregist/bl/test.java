@@ -35,7 +35,7 @@ public static void main(String[] arg){
 			msBean.setUUID(UUID.randomUUID().toString());
 			
 			msBean.setRequestType("A06");//获取短信验证码接口
-			msBean.setPhoneNumber("18516091731");
+			msBean.setPhoneNumber("15800981549");
 			msBean.setSourceType("C01");
 			 String msjsonString = JSON.toJSONString(msBean);
 			
@@ -43,15 +43,15 @@ public static void main(String[] arg){
 			 requestBean.setSendTime(new Timestamp(System.currentTimeMillis()));
 			 requestBean.setUUID(UUID.randomUUID().toString());
 			 requestBean.setRequestType("A02");
-			 requestBean.setMScode("271805");
+			 requestBean.setMScode("820615");
 			 requestBean.setSourceType("C01");
 			 requestBean.setPassword("123456");
-			 requestBean.setPhoneNumber("18516091731");
+			 requestBean.setPhoneNumber("15800981549");
 			 String registString =JSON.toJSONString(requestBean);
 			 
 			
-			//String str=connect("http://120.132.70.11:8080/huiting/HuiTingAction.do", strBufferXMLMS.toString());
-			String str=connect("http://10.2.60.43:8080/huiting/HuiTingAction.do", registString);
+			String str=connect("http://120.132.70.11:8080/huiting/HuiTingAction.do", registString);
+			//String str=connect("http://10.2.60.43:8080/huiting/HuiTingAction.do", registString);
 			
 			System.out.println("str----"+str);
 			

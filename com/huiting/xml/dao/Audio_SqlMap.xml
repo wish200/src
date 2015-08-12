@@ -17,6 +17,8 @@
     <result column="AudioLength" property="AudioLength" jdbcType="VARCHAR" />
     <result column="AudioContent" property="AudioContent" jdbcType="VARCHAR" />
     <result column="BackGoundPic" property="BackGoundPic" jdbcType="VARCHAR" />
+    <result column="ProgramID" property="ProgramID" jdbcType="VARCHAR" />
+    <result column="ProgramURL" property="ProgramURL" jdbcType="VARCHAR" />
   </resultMap>
 
 
@@ -30,13 +32,13 @@
   </delete>
 
   <insert id="insert" parameterClass="AudioDto" >
-  	insert into t_audio(AudioID,AudioName,AudioURL,UserID,NickName,AudioCatalog,AudioSource,UploadTime,AudioStatus,FlowerCnt,AudioLength,AudioContent,BackGoundPic)
-  	values (#AudioID#,#AudioName#,#AudioURL:VARCHAR#,#UserID:VARCHAR#,#NickName:VARCHAR#,#AudioCatalog:VARCHAR#,#AudioSource:VARCHAR#,#UploadTime:TIMESTAMP#,#AudioStatus:VARCHAR#,#FlowerCnt:INT#,#AudioLength:VARCHAR#,#AudioContent:VARCHAR#,#BackGoundPic:VARCHAR#)
+  	insert into t_audio(AudioID,AudioName,AudioURL,UserID,NickName,AudioCatalog,AudioSource,UploadTime,AudioStatus,FlowerCnt,AudioLength,AudioContent,BackGoundPic,ProgramID,ProgramURL)
+  	values (#AudioID#,#AudioName#,#AudioURL:VARCHAR#,#UserID:VARCHAR#,#NickName:VARCHAR#,#AudioCatalog:VARCHAR#,#AudioSource:VARCHAR#,#UploadTime:TIMESTAMP#,#AudioStatus:VARCHAR#,#FlowerCnt:INT#,#AudioLength:VARCHAR#,#AudioContent:VARCHAR#,#BackGoundPic:VARCHAR#,#ProgramID:VARCHAR#,#ProgramURL:VARCHAR#)
   </insert>
   
   <update id="update" parameterClass="AudioDto" >
   	update t_audio  set AudioName=#AudioName#,AudioURL=#AudioURL#,UserID=#UserID#,NickName=#NickName#,AudioCatalog=#AudioCatalog#,AudioSource=#AudioSource#,
-  	UploadTime=#UploadTime#,AudioStatus=#AudioStatus#,FlowerCnt=#FlowerCnt#,AudioLength=#AudioLength#,AudioContent=#AudioContent#,BackGoundPic=#BackGoundPic# 
+  	UploadTime=#UploadTime#,AudioStatus=#AudioStatus#,FlowerCnt=#FlowerCnt#,AudioLength=#AudioLength#,AudioContent=#AudioContent#,BackGoundPic=#BackGoundPic# ,ProgramID=#ProgramID# ,ProgramURL=#ProgramURL# 
   	where AudioID = #AudioID#
   </update>
   
@@ -58,7 +60,7 @@
  </select>
  
  <select id="queryaudioshow" parameterClass="AudioDto" resultClass="AudioListBean">
-  	select UserID,AudioID,AudioName,AudioURL,BackGoundPic,AudioContent,AudioLength from t_audio
+  	select UserID,AudioID,AudioName,AudioURL,BackGoundPic,AudioContent,AudioLength,ProgramID,ProgramURL from t_audio
   <dynamic prepend="WHERE">
    <isNotEmpty prepend="AND" property="AudioID">
     AudioID = #AudioID#

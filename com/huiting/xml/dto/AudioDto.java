@@ -16,6 +16,9 @@ public class AudioDto {
 	private String AudioLength="";
 	private String AudioContent="";
 	private String BackGoundPic="";
+	private String ProgramID="";
+	private String ProgramURL="";
+	
 	public String getAudioID() {
 		return AudioID;
 	}
@@ -93,6 +96,18 @@ public class AudioDto {
 	}
 	public void setBackGoundPic(String backGoundPic) {
 		BackGoundPic = backGoundPic;
+	}
+	public String getProgramID() {
+		return ProgramID;
+	}
+	public void setProgramID(String programID) {
+		ProgramID = programID;
+	}
+	public String getProgramURL() {
+		return ProgramURL;
+	}
+	public void setProgramURL(String programURL) {
+		ProgramURL = programURL;
 	}
 	
 	
